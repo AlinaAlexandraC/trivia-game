@@ -1,0 +1,35 @@
+.in-game-menu-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 700px !important;
+}
+
+.game-logo {
+    width: 100px;
+    margin: 10px;
+    background-color: white;
+    border-radius: 6px;
+}
+
+.restart-arrow {
+    width: 15px;
+    margin: 5px;
+}
+
+.restart-game, .game-score {
+    background-color: white;
+    border-radius: 6px;
+    width: 150px;
+    height: 50px;
+}
+
+.restart, .score, .points {
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    font-weight: 600;
+}

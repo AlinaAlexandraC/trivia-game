@@ -7,34 +7,21 @@
     width: 700px !important;
 }
 
-.question-card {    
-    width: 700px;
-    color: black;
-    border-radius: 8px;
-}
-
 .question {
     background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: wrap !important;
     border-radius: 6px;
     height: 150px;
+    width: 700px;
 }
 
 .timer {
     background-color: white;
     border-radius: 6px;
     margin-top: 10px;
-}
-
-.question-tracker {
-    background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
-    bottom: 0;
-    width: 100%;
-    height: 60px;
-    border-radius: 6px;
 }
 
 .answers-container {

@@ -3,8 +3,8 @@ import Homepage from './Pages/Homepage';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from './Pages/Layout';
 import Rules from './Components/Rules/Rules';
-import Statistics from './Components/Statistics/Statistics';
 import TriviaGame from './Pages/TriviaGame';
+import NotFound from './Pages/NotFound';
 
 function App() {
   const router = createBrowserRouter([
@@ -13,6 +13,7 @@ function App() {
       element: <Layout>
         <Homepage />
       </Layout>,
+      errorElement: <Layout><NotFound /></Layout>
     },
     {
       path: '/question',
@@ -24,12 +25,6 @@ function App() {
       path: '/rules',
       element: <Layout>
         <Rules />
-      </Layout>,
-    },
-    {
-      path: '/stats',
-      element: <Layout>
-        <Statistics />
       </Layout>,
     },
   ]);

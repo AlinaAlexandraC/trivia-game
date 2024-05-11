@@ -75,4 +75,7 @@ option {
       appearance: none;
   }
 
+  .submit {
+    width: 700px;
+  }
 

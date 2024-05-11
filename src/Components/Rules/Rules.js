@@ -1,3 +1,4 @@
+import { keyboard } from '@testing-library/user-event/dist/keyboard';
 import './Rules.css';
 import React, { useState } from 'react';
 import Collapse from 'react-collapse';
@@ -39,7 +40,7 @@ const Rules = () => {
             <div className="rules position-absolute top-0 mt-5">
                 <h1 className='rules-title p-3'>Trivia Rules</h1>
                 {sectionTitles.map((title, index) => (
-                    <div onClick={() => toggleCategory(`category${index + 1}`)} className={`collapsible p-3 ${categoryStates[`category${index + 1}`] ? 'clicked' : ''}`}>
+                    <div key={index} onClick={() => toggleCategory(`category${index + 1}`)} className={`collapsible p-3 ${categoryStates[`category${index + 1}`] ? 'clicked' : ''}`}>
                         <h2 className='category-title'>{title}</h2>
                         <Collapse isOpened={categoryStates[`category${index + 1}`]}>
                             <div className='content'>{sectionDescription[index]}</div>

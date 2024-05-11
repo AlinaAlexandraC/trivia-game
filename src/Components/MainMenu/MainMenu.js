@@ -1,13 +1,16 @@
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import './MainMenu.css';
 import { useState } from 'react';
+import TriviaGame from '../../Pages/TriviaGame';
 
 const MainMenu = () => {
+    const navigate = useNavigate();
     const [amount, setAmount] = useState('');
     const [category, setCategory] = useState('');
     const [difficulty, setDifficulty] = useState('');
     const [amountError, setAmountError] = useState(false);
     const [apiUrl, setApiUrl] = useState('');
+    const shouldRender = false;
 
     const categories = ['Any Category', 'General Knowledge', 'Entertainment: Books', 'Entertainment: Film', 'Entertainment: Music', 'Entertainment: Musicals & Theatres', 'Entertainment: Television', 'Entertainment: Video Games', 'Entertainment: Board Games', 'Science & Nature', 'Science: Computers', 'Science: Mathematics', 'Mythology', 'Sports', 'Geography', 'History', 'Politics', 'Art', 'Celebrities', 'Animals', 'Vehicles', 'Entertainment: Comics', 'Science: Gadgets', 'Entertainment: Japanese Anime & Manga', 'Entertainment: Cartoon & Animations'];
     const difficultyLevel = ['Difficulty', 'Easy', 'Medium', 'Hard'];
@@ -16,23 +19,24 @@ const MainMenu = () => {
         if (!amount) {
             setAmountError('Please select an amount');
             return;
-        }
-
-        if (isNaN(amount) || amount < 1) {
-            setAmountError('Please enter a valid amount (greater than or equal to 1)');
-            return;
+        } else {
+            navigate('/question');
         }
 
         setAmountError('');
+        getApiUrl();
+        localStorage.clear();
+    };
 
-        setApiUrl(`https://opentdb.com/api.php?amount=${amount}`);
-
-        if (category !== '' && category !== 'Any Category') {
-            setApiUrl(`&category=${categories.indexOf(category) + 8}`);
-        }
-
-        if (difficulty !== '' && difficulty !== 'Difficulty') {
-            setApiUrl(`&difficulty=${(difficulty).toLowerCase()}`);
+    const getApiUrl = () => {
+        if ((category !== '' && category !== 'Any Category') && (difficulty !== '' && difficulty !== 'Difficulty')) {
+            setApiUrl(`https://opentdb.com/api.php?amount=${amount}&category=${categories.indexOf(category) + 8}&difficulty=${(difficulty).toLowerCase()}`);
+        } else if ((category === '' || category === 'Any Category') && (difficulty !== '' && difficulty !== 'Difficulty')) {
+            setApiUrl(`https://opentdb.com/api.php?amount=${amount}&difficulty=${(difficulty).toLowerCase()}`);
+        } else if ((category !== '' && category !== 'Any Category') && (difficulty === '' || difficulty === 'Difficulty')) {
+            setApiUrl(`https://opentdb.com/api.php?amount=${amount}&category=${categories.indexOf(category) + 8}`);
+        } else {
+            setApiUrl(`https://opentdb.com/api.php?amount=${amount}`);
         }
     };
 
@@ -75,14 +79,18 @@ const MainMenu = () => {
                 </div>
             </div>
             <div className="buttons pt-3">
-                <Link className='hero-btn text-decoration-none' to='/question' onClick={handleStartGame}>
-                    <div className="hero-btn submit">Start Game</div>
-                </Link>
+                <div className="hero-btn submit" onClick={handleStartGame}>Start Game</div>
                 <Link className='hero-btn text-decoration-none' to='/rules'>
                     <div className="hero-btn rules-btn">Check Rules</div>
                 </Link>
                 {amountError && <div className="error-label">{amountError}</div>}
             </div>
+            {/* TODO: API url should be taken from the handleStartGame function */}
+            {shouldRender && (
+                <div>
+                    <TriviaGame apiUrl={apiUrl} />
+                </div>
+            )}
         </div>
     );
 };

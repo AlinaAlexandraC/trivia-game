@@ -1,9 +1,9 @@
-import Menu from '../Components/MainMenu/MainMenu';
+import MainMenu from '../Components/MainMenu/MainMenu';
 
 const Homepage = () => {
     return (
         <div className="homepage">
-            <Menu />
+            <MainMenu />
         </div>
     );
 }

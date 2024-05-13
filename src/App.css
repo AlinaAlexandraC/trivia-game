@@ -14,7 +14,6 @@
   color: white;
 }
 
-/* CSS */
 .hero-btn {
   background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
   border-radius: 8px;
@@ -50,8 +49,8 @@
 }
 
 .loader {
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
   border-radius: 50%;
   width: 120px;
   height: 120px;
@@ -70,3 +69,5 @@
   width: 700px;
   background-color: white;
 }
+
+/* TODO: make the app responsive */

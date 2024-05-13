@@ -16,13 +16,18 @@ const TriviaGame = ({ apiUrl }) => {
     const [answersPool, setAnswersPool] = useState([]);
     const [score, setScore] = useState(0);
     const [correctAnswersCounter, setCorrectAnswersCounter] = useState(0);
+    const [width, setWidth] = useState(700);
     const feedbacks = [
         "Oops! Looks like you didn't quite make it this time. Keep practicing and try again to reach that winning score!", // (for scores below 49)
         "Great job! You're on the right track. With a bit more effort and focus, you'll be soaring towards victory in no time!", // (for scores between 50 and 79)
         "Congratulations! You nailed it! Your score is over 80, which means you're a true quiz master! Keep up the great work!" // (for scores over 80)
     ];
-    let seconds = 0;
-    const timerSeconds = 15000;
+    const timerSeconds = 20000;
+
+    function HTMLDecode(textString) {
+        let doc = new DOMParser().parseFromString(textString, "text/html");
+        return doc.documentElement.textContent;
+    }
 
     const getQuestions = async () => {
         try {
@@ -40,7 +45,7 @@ const TriviaGame = ({ apiUrl }) => {
                 setQuestions(questionsData);
                 const questionsInfo = questionsData.map((question, index) => ({
                     id: index + 1,
-                    question: question.question,
+                    question: HTMLDecode(question.question),
                     correct_answer: question.correct_answer,
                     incorrect_answers: question.incorrect_answers
                 }));
@@ -65,21 +70,21 @@ const TriviaGame = ({ apiUrl }) => {
             let correctAnswerPos = Math.floor(Math.random() * 4) + 1;
             answersPoolArray.splice(correctAnswerPos - 1, 0, currentQuestion.correct_answer);
             setAnswersPool(answersPoolArray);
+            // TODO: this part should stop the progress bar after an answer is selected for the last question
+            const interval = setInterval(() => {
+                setWidth(prevWidth => prevWidth - (700 / (timerSeconds / 50)));
+            }, 50);
 
-            if (index !== questions.length - 1) {
-                const timer = setTimeout(() => {
-                    handleAnswerSelection(false);
-                }, timerSeconds);
+            const timer = setTimeout(() => {
+                clearInterval(interval);
+                handleAnswerSelection(false);
+            }, timerSeconds);
 
-                const interval = setInterval(() => {
-                    seconds++;
-                }, 1000);
-
-                return () => {
-                    clearTimeout(timer);
-                    clearInterval(interval);
-                };
-            }
+            return () => {
+                clearTimeout(timer);
+                clearInterval(interval);
+                setWidth(700);
+            };
         }
     }, [questions, index]);
 
@@ -97,7 +102,8 @@ const TriviaGame = ({ apiUrl }) => {
                     confirmButtonColor: "#3085d6",
                     cancelButtonColor: "#d33",
                     confirmButtonText: "Play again?",
-                    cancelButtonText: 'Back to Main Menu'
+                    cancelButtonText: 'Back to Main Menu',
+                    allowOutsideClick: false
                 }).then((result) => {
                     if (result.isConfirmed) {
                         restartGame();
@@ -118,7 +124,8 @@ const TriviaGame = ({ apiUrl }) => {
                     confirmButtonColor: "#3085d6",
                     cancelButtonColor: "#d33",
                     confirmButtonText: "Play again?",
-                    cancelButtonText: 'Back to Main Menu'
+                    cancelButtonText: 'Back to Main Menu',
+                    allowOutsideClick: false
                 }).then((result) => {
                     if (result.isConfirmed) {
                         restartGame();
@@ -139,7 +146,8 @@ const TriviaGame = ({ apiUrl }) => {
                     confirmButtonColor: "#3085d6",
                     cancelButtonColor: "#d33",
                     confirmButtonText: "Play again?",
-                    cancelButtonText: 'Back to Main Menu'
+                    cancelButtonText: 'Back to Main Menu',
+                    allowOutsideClick: false
                 }).then((result) => {
                     if (result.isConfirmed) {
                         restartGame();
@@ -184,7 +192,7 @@ const TriviaGame = ({ apiUrl }) => {
                         <div>
                             {questions.length > 0 ? (
                                 <div>
-                                    <QuestionCard index={index} questions={questions} loading={loading} answersPool={answersPool} handleAnswerSelection={handleAnswerSelection} score={score} restartGame={restartGame} seconds={seconds} timerSeconds={timerSeconds} />
+                                    <QuestionCard index={index} questions={questions} loading={loading} answersPool={answersPool} handleAnswerSelection={handleAnswerSelection} score={score} restartGame={restartGame} width={width} HTMLDecode={HTMLDecode} />
                                     <div className='question-tracker d-flex position-absolute bottom-0 mb-3'>
                                         <div className="question-tracker d-flex justify-content-center flex-wrap align-content-center">{`${index + 1} / ${questions.length}`}</div>
                                     </div>

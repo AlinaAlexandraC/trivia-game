@@ -11,7 +11,7 @@
     background-color: white;
     border-radius: 6px;
     color: black;
-    width: 700px;
+    width: 100%;
 }
 
 .game-title {
@@ -79,4 +79,34 @@ option {
   .submit {
     width: 700px;
   }
+
+  @media only screen and (max-width: 425px) {
+    .main-menu-container {
+        width: 400px !important;
+    }    
+    
+    .submit {
+        width: 400px;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .main-menu-container {
+        width: 350px !important;
+    }    
+    
+    .submit {
+        width: 350px;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .main-menu-container {
+        width: 295px !important;
+    }    
+    
+    .submit {
+        width: 295px;
+    }
+}
 

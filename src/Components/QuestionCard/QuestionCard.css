@@ -38,3 +38,21 @@
 .answer:hover {
     background-color: rgb(196, 184, 241);
 }
+
+@media only screen and (max-width: 425px) {
+    .question-card-container {
+        width: 400px !important;
+    } 
+}
+
+@media only screen and (max-width: 375px) {
+    .question-card-container {
+        width: 350px !important;
+    } 
+}
+
+@media only screen and (max-width: 320px) {
+    .question-card-container {
+        width: 295px !important;
+    } 
+}

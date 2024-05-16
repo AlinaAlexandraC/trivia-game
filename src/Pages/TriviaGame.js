@@ -71,20 +71,21 @@ const TriviaGame = ({ apiUrl }) => {
             answersPoolArray.splice(correctAnswerPos - 1, 0, currentQuestion.correct_answer);
             setAnswersPool(answersPoolArray);
             // TODO: this part should stop the progress bar after an answer is selected for the last question
-            const interval = setInterval(() => {
-                setWidth(prevWidth => prevWidth - (700 / (timerSeconds / 50)));
-            }, 50);
+            if (index < questions.length) {
+                const interval = setInterval(() => {
+                    setWidth(prevWidth => prevWidth - (700 / (timerSeconds / 50)));
+                }, 50);
 
-            const timer = setTimeout(() => {
-                clearInterval(interval);
-                handleAnswerSelection(false);
-            }, timerSeconds);
+                const timer = setTimeout(() => {
+                    handleAnswerSelection(false);
+                }, timerSeconds);
 
-            return () => {
-                clearTimeout(timer);
-                clearInterval(interval);
-                setWidth(700);
-            };
+                return () => {
+                    clearTimeout(timer);
+                    clearInterval(interval);
+                    setWidth(700);
+                };
+            }
         }
     }, [questions, index]);
 
@@ -188,7 +189,7 @@ const TriviaGame = ({ apiUrl }) => {
                         <div className="loader"></div>
                     </div>
                 ) : (
-                    <div>
+                    <div >
                         <div>
                             {questions.length > 0 ? (
                                 <div>

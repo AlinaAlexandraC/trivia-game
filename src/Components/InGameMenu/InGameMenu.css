@@ -1,9 +1,9 @@
-.container {
+.in-game-menu-container {
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    width: 700px !important;
+    width: 700px;
 }
 
 .game-logo {
@@ -21,8 +21,8 @@
 .restart-game, .game-score {
     background-color: white;
     border-radius: 6px;
-    width: 150px;
-    height: 50px;
+    width: 30%;
+    height: 60px;
 }
 
 .restart-game {

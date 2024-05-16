@@ -11,7 +11,8 @@ const QuestionCard = ({ index, questions, answersPool, handleAnswerSelection, sc
         <div className="question-card-container d-flex position-relative">
             <InGameMenu score={score} restartGame={restartGame} />
             <div>
-                <div className='question mt-5'>{questions[index].question}</div>
+                <div className='question mt-5'>{questions[index].question}
+                </div>
                 <div className="timer mt-2">
                     <div className="progress">
                         <div className="progress-bar progress-bar-striped bg-info" style={divStyle} role="progressbar"></div>

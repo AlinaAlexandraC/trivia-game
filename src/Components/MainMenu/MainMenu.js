@@ -16,27 +16,30 @@ const MainMenu = () => {
     const difficultyLevel = ['Difficulty', 'Easy', 'Medium', 'Hard'];
 
     const handleStartGame = () => {
+        setAmountError('');
+        localStorage.clear();
+        getApiUrl();
         if (!amount) {
             setAmountError('Please select an amount');
             return;
         } else {
-            navigate('/question');
+            navigate(`/question`);
         }
-
-        setAmountError('');
-        getApiUrl();
-        localStorage.clear();
     };
 
     const getApiUrl = () => {
         if ((category !== '' && category !== 'Any Category') && (difficulty !== '' && difficulty !== 'Difficulty')) {
             setApiUrl(`https://opentdb.com/api.php?amount=${amount}&category=${categories.indexOf(category) + 8}&difficulty=${(difficulty).toLowerCase()}`);
+            localStorage.setItem('apiUrl', `https://opentdb.com/api.php?amount=${amount}&category=${categories.indexOf(category) + 8}&difficulty=${(difficulty).toLowerCase()}`)
         } else if ((category === '' || category === 'Any Category') && (difficulty !== '' && difficulty !== 'Difficulty')) {
             setApiUrl(`https://opentdb.com/api.php?amount=${amount}&difficulty=${(difficulty).toLowerCase()}`);
+            localStorage.setItem('apiUrl', `https://opentdb.com/api.php?amount=${amount}&difficulty=${(difficulty).toLowerCase()}`)
         } else if ((category !== '' && category !== 'Any Category') && (difficulty === '' || difficulty === 'Difficulty')) {
             setApiUrl(`https://opentdb.com/api.php?amount=${amount}&category=${categories.indexOf(category) + 8}`);
+            localStorage.setItem('apiUrl', `https://opentdb.com/api.php?amount=${amount}&category=${categories.indexOf(category) + 8}`)
         } else {
             setApiUrl(`https://opentdb.com/api.php?amount=${amount}`);
+            localStorage.setItem('apiUrl', `https://opentdb.com/api.php?amount=${amount}`)
         }
     };
 

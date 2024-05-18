@@ -93,7 +93,7 @@
   }
 
   .question-tracker {
-    width: 93%;
+    width: calc(100% - 25px);
   }
 
   .swal2-popup {
@@ -129,7 +129,7 @@
   }
 
   .question-tracker {
-    width: 93%;
+    width: calc(100% - 25px);
   }
 
   .swal2-popup {
@@ -166,7 +166,7 @@
   }
 
   .question-tracker {
-    width: 93%;
+    width: calc(100% - 25px);
   }
 
   .swal2-popup {

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const fetchQuestions = async () => {
-    const response = await axios.get(`https://opentdb.com/api.php?amount=10&category=9&difficulty=easy`);
+const fetchQuestions = async (apiUrl) => {
+    const response = await axios.get(apiUrl);
 
     return response.data.results;
 };

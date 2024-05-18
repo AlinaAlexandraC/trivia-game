@@ -8,7 +8,7 @@ import dinosaur from '../assets/dinosaur-dancing.gif';
 import Swal from 'sweetalert2';
 import { useNavigate } from "react-router-dom";
 
-const TriviaGame = ({ apiUrl }) => {
+const TriviaGame = () => {
     const navigate = useNavigate();
     const [questions, setQuestions] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -23,6 +23,7 @@ const TriviaGame = ({ apiUrl }) => {
         "Congratulations! You nailed it! Your score is over 80, which means you're a true quiz master! Keep up the great work!" // (for scores over 80)
     ];
     const timerSeconds = 20000;
+    const apiUrl = localStorage.getItem('apiUrl');
 
     function HTMLDecode(textString) {
         let doc = new DOMParser().parseFromString(textString, "text/html");
@@ -41,7 +42,7 @@ const TriviaGame = ({ apiUrl }) => {
                 setQuestions(JSON.parse(cachedQuestions));
                 setLoading(false);
             } else {
-                const questionsData = await fetchQuestions();
+                const questionsData = await fetchQuestions(apiUrl);
                 setQuestions(questionsData);
                 const questionsInfo = questionsData.map((question, index) => ({
                     id: index + 1,
@@ -90,7 +91,7 @@ const TriviaGame = ({ apiUrl }) => {
     }, [questions, index]);
 
     const handleAnswerSelection = (isCorrect) => {
-        let scoreProcentage = (100 / questions.length) * correctAnswersCounter;
+        let scoreProcentage = ((100 / questions.length) * correctAnswersCounter).toFixed(2);
         if (index === questions.length - 1) {
             if (scoreProcentage < 50) {
                 Swal.fire({

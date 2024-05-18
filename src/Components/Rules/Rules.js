@@ -37,7 +37,6 @@ const Rules = () => {
         <div className="rules-container position-relative">
             <div className="rules position-absolute top-0 mt-5">
                 <h1 className='rules-title p-3'>Trivia Rules</h1>
-                {/* TODO: style this */}
                 {sectionTitles.map((title, index) => (
                     <div key={index} onClick={() => toggleCategory(`category${index + 1}`)} className={`collapsible p-3 ${categoryStates[`category${index + 1}`] ? 'clicked' : ''}`}>
                         <h2 className='category-title'>{title}</h2>

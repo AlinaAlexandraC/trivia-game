@@ -5,6 +5,7 @@ import Layout from './Pages/Layout';
 import Rules from './Components/Rules/Rules';
 import TriviaGame from './Pages/TriviaGame';
 import NotFound from './Pages/NotFound';
+import GameFeedback from './Components/GameFeedback/GameFeedback';
 
 function App() {
   const router = createBrowserRouter([
@@ -27,6 +28,12 @@ function App() {
         <Rules />
       </Layout>,
     },
+    {
+      path: '/feedback',
+      element: <Layout>
+        <GameFeedback />
+      </Layout>,
+    }
   ]);
 
   return (

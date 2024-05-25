@@ -1,4 +1,3 @@
-import { keyboard } from '@testing-library/user-event/dist/keyboard';
 import './Rules.css';
 import React, { useState } from 'react';
 import Collapse from 'react-collapse';

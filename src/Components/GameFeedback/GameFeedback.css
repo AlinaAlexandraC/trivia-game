@@ -1,0 +1,45 @@
+.game-feedback-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 700px !important;
+}
+
+.feedback-table {
+    background-color: white;
+    border-radius: 6px;
+    color: black;
+    width: 100%;
+}
+
+.feedback-title {
+    background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin: 0;
+}
+
+label {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+span {
+    font-size: 18px;
+    padding-top: 15px;
+}
+
+.fail > div:first-of-type {
+    color: red;
+    font-weight: 600;
+}
+
+.close-win > div:first-of-type {
+    color: orange;
+}
+
+.win > div:first-of-type {
+    color: green;
+}

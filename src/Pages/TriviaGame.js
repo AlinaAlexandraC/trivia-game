@@ -1,11 +1,7 @@
 import QuestionCard from "../Components/QuestionCard/QuestionCard";
 import { useState, useEffect } from 'react';
 import { fetchQuestions } from '../http/questions';
-import duck from '../assets/cxyduck.gif';
-import middleDuck from '../assets/rubber-duck1.gif';
-import sadDuck from '../assets/sad-cry.gif';
 import dinosaur from '../assets/dinosaur-dancing.gif';
-import Swal from 'sweetalert2';
 import { useNavigate } from "react-router-dom";
 
 const TriviaGame = () => {
@@ -15,13 +11,7 @@ const TriviaGame = () => {
     const [index, setIndex] = useState(0);
     const [answersPool, setAnswersPool] = useState([]);
     const [score, setScore] = useState(0);
-    const [correctAnswersCounter, setCorrectAnswersCounter] = useState(0);
     const [width, setWidth] = useState(700);
-    const feedbacks = [
-        "Oops! Looks like you didn't quite make it this time. Keep practicing and try again to reach that winning score!", // (for scores below 49)
-        "Great job! You're on the right track. With a bit more effort and focus, you'll be soaring towards victory in no time!", // (for scores between 50 and 79)
-        "Congratulations! You nailed it! Your score is over 80, which means you're a true quiz master! Keep up the great work!" // (for scores over 80)
-    ];
     const timerSeconds = 20000;
     const apiUrl = localStorage.getItem('apiUrl');
 
@@ -71,7 +61,6 @@ const TriviaGame = () => {
             let correctAnswerPos = Math.floor(Math.random() * 4) + 1;
             answersPoolArray.splice(correctAnswerPos - 1, 0, currentQuestion.correct_answer);
             setAnswersPool(answersPoolArray);
-            // TODO: this part should stop the progress bar after an answer is selected for the last question
             if (index < questions.length) {
                 const interval = setInterval(() => {
                     setWidth(prevWidth => prevWidth - (700 / (timerSeconds / 50)));
@@ -91,83 +80,14 @@ const TriviaGame = () => {
     }, [questions, index]);
 
     const handleAnswerSelection = (isCorrect) => {
-        let scoreProcentage = ((100 / questions.length) * correctAnswersCounter).toFixed(2);
         if (index === questions.length - 1) {
-            if (scoreProcentage < 50) {
-                Swal.fire({
-                    title: `You mastered ${scoreProcentage} % of the quiz`,
-                    text: feedbacks[0],
-                    imageUrl: sadDuck,
-                    imageWidth: 200,
-                    imageAlt: "sad duck",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Play again?",
-                    cancelButtonText: 'Back to Main Menu',
-                    allowOutsideClick: false
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        restartGame();
-                    } else if (
-                        result.dismiss === Swal.DismissReason.cancel
-                    ) {
-                        window.location.href = '/';
-                    }
-                });
-            } else if (scoreProcentage > 49 && scoreProcentage < 80) {
-                Swal.fire({
-                    title: `You mastered ${scoreProcentage} % of the quiz`,
-                    text: feedbacks[1],
-                    imageUrl: middleDuck,
-                    imageWidth: 200,
-                    imageAlt: "confident duck",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Play again?",
-                    cancelButtonText: 'Back to Main Menu',
-                    allowOutsideClick: false
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        restartGame();
-                    } else if (
-                        result.dismiss === Swal.DismissReason.cancel
-                    ) {
-                        window.location.href = '/';
-                    }
-                });
-            } else {
-                Swal.fire({
-                    title: `You mastered ${scoreProcentage} % of the quiz`,
-                    text: feedbacks[2],
-                    imageUrl: duck,
-                    imageWidth: 200,
-                    imageAlt: "cool duck",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Play again?",
-                    cancelButtonText: 'Back to Main Menu',
-                    allowOutsideClick: false
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        restartGame();
-                    } else if (
-                        result.dismiss === Swal.DismissReason.cancel
-                    ) {
-                        window.location.href = '/';
-                    }
-                });
-            }
+            localStorage.setItem('score', score);
+            navigate('/feedback');
         } else {
-            const nextIndex = index + 1;
-            localStorage.setItem('quizIndex', nextIndex);
-            setIndex(nextIndex);
+            setIndex(index + 1);
 
             if (isCorrect) {
                 setScore(score + 1);
-                setCorrectAnswersCounter(correctAnswersCounter + 1);
             }
         }
     };
@@ -179,7 +99,6 @@ const TriviaGame = () => {
         getQuestions();
         setIndex(0);
         setScore(0);
-        setCorrectAnswersCounter(0);
     };
 
     return (

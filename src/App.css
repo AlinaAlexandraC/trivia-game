@@ -23,7 +23,7 @@
   user-select: none;
   display: flex;
   justify-content: center;
-  align-items: center;  
+  align-items: center;
   margin-top: 10px;
   margin-bottom: 10px;
   width: 100%;
@@ -42,7 +42,7 @@
   border-radius: 6px;
 }
 
-.question-card {    
+.question-card {
   width: 700px;
   color: black;
   border-radius: 8px;
@@ -61,8 +61,13 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .no-questions {
@@ -70,107 +75,14 @@
   background-color: white;
 }
 
-@media only screen and (max-width: 425px) {
-  .in-game-menu-container {
-    width: 93% !important;
-  }
-
-  .question-card {
-    width: 100% !important;
-  }
-
-  .restart, .score, .points {
-    font-size: 14px !important;
-  }
-
-  .timer {
-    display: none !important;
-  }
-
-  .question {
-   width: 400px !important;
-   padding: 25px;
-  }
-
+@media only screen and (max-width: 950px) {
   .question-tracker {
-    width: calc(100% - 25px);
-  }
-
-  .swal2-popup {
-    width: 300px;
-    font-size: 12px;
+    width: 400px;
   }
 }
 
-@media only screen and (max-width: 375px) {
-  .in-game-menu-container {
-    width: 93% !important;
-  }
-
-  .game-logo {
-    width: 80px !important;
-  }
-
-  .question-card {
-    width: 100% !important;
-  }
-
-  .restart, .score, .points {
-    font-size: 14px !important;
-  }
-
-  .timer {
-    display: none !important;
-  }
-
-  .question {
-   width: 350px !important;
-   padding: 25px;
-  }
-
+@media only screen and (max-width: 576px) {
   .question-tracker {
-    width: calc(100% - 25px);
-  }
-
-  .swal2-popup {
-    width: 300px;
-    font-size: 12px;
-  }
-}
-
-@media only screen and (max-width: 320px) {
-  .in-game-menu-container {
-    width: 93% !important;
-    padding: 0 !important;
-  }
-
-  .game-logo {
-    width: 80px !important;
-  }
-
-  .question-card {
-    width: 100% !important;
-  }
-
-  .restart, .score, .points {
-    font-size: 14px !important;
-  }
-
-  .timer {
-    display: none !important;
-  }
-
-  .question {
-   width: 295px !important;
-   padding: 25px;
-  }
-
-  .question-tracker {
-    width: calc(100% - 25px);
-  }
-
-  .swal2-popup {
-    width: 250px;
-    font-size: 12px;
+    width: 350px;
   }
 }

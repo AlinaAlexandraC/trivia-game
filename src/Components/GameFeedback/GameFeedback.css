@@ -43,3 +43,15 @@ span {
 .win > div:first-of-type {
     color: green;
 }
+
+@media only screen and (max-width: 950px) {
+    .game-feedback-container {
+        width: 400px !important;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .game-feedback-container {
+        width: 350px !important;
+    }
+}

@@ -6,9 +6,9 @@ import restart from "../../assets/restart.svg";
 const InGameMenu = ({ restartGame, score }) => {
     return (
         <div className="in-game-menu-container d-flex flex-row justify-content-between align-items-center pt-3 p-0 position-absolute top-0">
-            <div className="restart-game d-flex flex-row" onClick={() => restartGame()}>
-                <img className="restart-arrow" src={restart} alt="restart-game" />
-                <p className="restart">Restart Game</p>
+            <div className="restart-game d-flex flex-row justify-content-between" onClick={() => restartGame()}>
+                <img className="restart-arrow m-lg-3" src={restart} alt="restart-game" />
+                <p className="restart m-lg-3">Restart Game</p>
             </div>
             <Link to="/" className="game-logo">
                 <img src={logo} alt="logo" />

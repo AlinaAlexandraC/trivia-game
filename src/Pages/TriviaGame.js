@@ -40,7 +40,6 @@ const TriviaGame = () => {
                     correct_answer: question.correct_answer,
                     incorrect_answers: question.incorrect_answers
                 }));
-
                 setQuestions(questionsInfo);
                 setLoading(false);
                 localStorage.setItem('cachedQuestions', JSON.stringify(questionsInfo));
@@ -56,6 +55,7 @@ const TriviaGame = () => {
 
     useEffect(() => {
         if (questions.length > 0) {
+            console.log(questions[4].question.length);
             const currentQuestion = questions[index];
             let answersPoolArray = [...currentQuestion.incorrect_answers];
             let correctAnswerPos = Math.floor(Math.random() * 4) + 1;

@@ -55,7 +55,6 @@ const TriviaGame = () => {
 
     useEffect(() => {
         if (questions.length > 0) {
-            console.log(questions[4].question.length);
             const currentQuestion = questions[index];
             let answersPoolArray = [...currentQuestion.incorrect_answers];
             let correctAnswerPos = Math.floor(Math.random() * 4) + 1;

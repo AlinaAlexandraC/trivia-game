@@ -31,27 +31,43 @@ span {
     padding-top: 15px;
 }
 
-.fail > div:first-of-type {
+.fail>div:first-of-type {
     color: red;
     font-weight: 600;
 }
 
-.close-win > div:first-of-type {
+.close-win>div:first-of-type {
     color: orange;
 }
 
-.win > div:first-of-type {
+.win>div:first-of-type {
     color: green;
 }
 
 @media only screen and (max-width: 950px) {
     .game-feedback-container {
-        width: 400px !important;
+        width: 400px !important;        
+    }
+
+    label {
+        font-size: clamp(1rem, 2.5vw, 1rem);
+    }
+
+    span {
+        font-size: clamp(1rem, 2.5vw, 1rem);
     }
 }
 
 @media only screen and (max-width: 576px) {
     .game-feedback-container {
         width: 350px !important;
+    }
+
+    label {
+        font-size: clamp(1rem, 2.5vw, 1rem);
+    }
+
+    span {
+        font-size: clamp(0.8rem, 2.5vw, 1rem);
     }
 }

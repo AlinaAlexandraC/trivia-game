@@ -46,6 +46,7 @@ const GameFeedback = () => {
                             </div>
                     }
                 </div>
+                <hr />
                 {
                     (passRate < 50) && (
                         <div className="fail p-3">
@@ -70,6 +71,7 @@ const GameFeedback = () => {
                         </div>
                     )
                 }
+                <hr />
                 <div className="results d-flex flex-row justify-content-around p-3">
                     <div className="score-feedback d-flex flex-column">
                         <label htmlFor="score-feedback">Score</label>
@@ -77,7 +79,7 @@ const GameFeedback = () => {
                     </div>
                     <div className="pass-rate d-flex flex-column">
                         <label htmlFor="pass-rate">Pass Rate</label>
-                        <span>{passRate}</span>
+                        <span>{passRate} %</span>
                     </div>
                 </div>
             </div>

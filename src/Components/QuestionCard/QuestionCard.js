@@ -8,7 +8,7 @@ const QuestionCard = ({ index, questions, answersPool, handleAnswerSelection, sc
     };
     
     return (
-        <div className="question-card-container d-flex position-relative">
+        <div className="question-card-container d-flex position-relative" id='question-card-container'>
             <InGameMenu score={score} restartGame={restartGame} />
             <div>
                 <div className='question d-flex flex-wrap'>{questions[index].question}

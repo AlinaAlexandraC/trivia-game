@@ -11,11 +11,34 @@ const TriviaGame = () => {
     const [index, setIndex] = useState(0);
     const [answersPool, setAnswersPool] = useState([]);
     const [score, setScore] = useState(0);
-    const [width, setWidth] = useState(700);
+    const [width, setWidth] = useState(350);
     const timerSeconds = 20000;
     const apiUrl = localStorage.getItem('apiUrl');
 
-    function HTMLDecode(textString) {
+    const getWidth = () => {
+        let element = document.getElementById('question-card-container');
+        let elementWidth = element ? element.offsetWidth : window.innerWidth;
+
+        if (elementWidth === 700) {
+            return 700;
+        } else if (elementWidth === 400) {
+            return 400;
+        } else {
+            return 350;
+        }
+    };
+
+    const updateWidth = () => {
+        setWidth(getWidth());
+    };
+
+    useEffect(() => {
+        updateWidth();
+        window.addEventListener('resize', updateWidth);
+        return () => window.removeEventListener('resize', updateWidth);
+    }, []);
+
+    const HTMLDecode = (textString) => {
         let doc = new DOMParser().parseFromString(textString, "text/html");
         return doc.documentElement.textContent;
     }
@@ -60,21 +83,26 @@ const TriviaGame = () => {
             let correctAnswerPos = Math.floor(Math.random() * 4) + 1;
             answersPoolArray.splice(correctAnswerPos - 1, 0, currentQuestion.correct_answer);
             setAnswersPool(answersPoolArray);
+            
+            const newWidth = getWidth();
+            setWidth(newWidth);
+
+            let interval, timer;
+
             if (index < questions.length) {
-                const interval = setInterval(() => {
-                    setWidth(prevWidth => prevWidth - (700 / (timerSeconds / 50)));
+                interval = setInterval(() => {
+                    setWidth(prevWidth => Math.max(prevWidth - (newWidth / (timerSeconds / 50)), 0));
                 }, 50);
 
-                const timer = setTimeout(() => {
+                timer = setTimeout(() => {
                     handleAnswerSelection(false);
                 }, timerSeconds);
-
-                return () => {
-                    clearTimeout(timer);
-                    clearInterval(interval);
-                    setWidth(700);
-                };
             }
+
+            return () => {
+                clearInterval(interval);
+                clearTimeout(timer);
+            };
         }
     }, [questions, index]);
 
@@ -84,12 +112,14 @@ const TriviaGame = () => {
             navigate('/feedback');
         } else {
             setIndex(index + 1);
-
+            localStorage.setItem('quizIndex', index + 1);
+            setWidth(getWidth());
+            
             if (isCorrect) {
                 setScore(score + 1);
             }
         }
-    };
+    };    
 
     const restartGame = () => {
         localStorage.removeItem('cachedQuestions');
